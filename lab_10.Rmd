@@ -51,3 +51,40 @@ say("I love tacos!" , by = "hypnotoad")
 ```
 
 ## usethis for everything 
+
+R Project first, then git and GitHub repo.
+
+-usethis:: use_git() to make version controlled local repo
+-usethis:: use_github() to create upstream repo
+
+## paletteer: aggregated color palettes
+
+-use view(palettes_d_names) to get list of palettes
+
+```{r}
+storms %>% 
+  group_by(name) %>% 
+  summarize(min_pressure = min(pressure, na.rm = TRUE)) %>% 
+  slice_min(n = 10, min_pressure) %>% 
+  ggplot(aes(x = min_pressure, y = name)) +
+  geom_col(aes(fill = name)) +
+  scale_fill_paletteer_d("palettetown::latias") # insert "pkg::palette" pkg is pkg name
+```
+
+## Make a map of Jornada LTER Vegetation
+
+```{r}
+jornada_veg <- read_sf("doc.kml") %>% 
+  select(Name)%>% 
+  clean_names()
+
+ggplot() + 
+  geom_sf(data = jornada_veg, color = name) +
+  scale_fill_paletteer_c()
+
+# Update this map:
+# Each vegetation type has a different fill color
+# Update theme
+# Customize color palette
+```
+
